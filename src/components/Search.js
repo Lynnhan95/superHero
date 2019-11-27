@@ -1,10 +1,13 @@
 import React, { Component } from 'react' 
 
 import axios from 'axios'
-import SearchLists from '../components/SearchLists'
+import SearchLists from './SearchLists'
+import './style.css'
+
 
 const API_URL = "https://superheroapi.com/api"
 const API_token = "212252059775751"
+const search_interval = 300
 
 class Search extends Component{
     constructor(props) {
@@ -26,34 +29,37 @@ class Search extends Component{
                 })
                 console.log(data.data)
             })
-            .catch(() => this.setState({ error: true}))
+            .catch(() => this.setState({ error: true }))
     }
 
     handleInputChange = () => {
-        this.setState({
-            query: this.search.value
-        }, () => {
-            if (this.state.query && this.state.query.length > 0) {
-                //show drop down list
-                this.getHero()
-            } else {
-                //hide drop down list 
+            this.setState({
+                query: this.search.value
             }
-        })
+            , () => {
+                if (this.state.query && this.state.query.length > 0) {
+                    //show drop down list
+                    this.getHero()
+                } else {
+                    //hide drop down list 
+                    this.setState({isLoaded: false})
+                }
+            }) 
+
     }
 
     render() {
         console.log(this.state.query)
 
         return (
-            <form>
+            <div className = "searchBox">
                 <input
                     placeholder = "Search for super heros' name"
                     ref = {input =>  this.search= input}
                     onChange = {this.handleInputChange}
                 />
-                <SearchLists results={this.state.results} isLoaded={this.state.isLoaded} error={this.state.error}/> 
-            </form>
+                <SearchLists results={this.state.results} isLoaded={this.state.isLoaded} error={this.state.error} /> 
+            </div>
         )
     }
 }
