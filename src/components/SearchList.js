@@ -1,9 +1,7 @@
 import React, {Component} from 'react' 
-
-import { List, Image, Button } from 'semantic-ui-react'
-import './style.css'
-
 import { connect } from 'react-redux'
+import './style.css'
+import { List, Image, Button } from 'semantic-ui-react'
 
 function mapStateToProps(state) {
     return {
@@ -11,11 +9,8 @@ function mapStateToProps(state) {
     }
 }
 
-class SearchLists extends Component{
-    constructor() {
-        super()
-    }
-
+class SearchList extends Component{
+    //dispatch action to reducer, to get new state and make it accessible to other components
     handleButtonClick = (e, d) => {
         this.props.dispatch({
             type: "SELECT_HERO",
@@ -69,17 +64,13 @@ class SearchLists extends Component{
                             <List.Header>Eh-oh, no results</List.Header>
                             </List.Content>
                         </List.Item>
-                    )
-                       
+                    )  
                 }
-
             }
-
         }
-
-
     }
+
 }
 
-export default connect(mapStateToProps) (SearchLists)
+export default connect(mapStateToProps) (SearchList)
 

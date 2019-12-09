@@ -1,6 +1,6 @@
 import React, { Component } from 'react' 
 import axios from 'axios'
-import SearchLists from './SearchLists'
+import SearchLists from './SearchList'
 import './style.css'
 import {bindActionCreators} from 'redux'
 import { connect } from 'react-redux'
@@ -64,7 +64,6 @@ class Search extends Component{
 
         return (
             <div className = "searchBox">
-                <h1>counter {this.props.selectReducer}</h1>
                 <input
                     placeholder = "Search for super heros' name"
                     ref = {input =>  this.search= input}

@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
-import { Card, Image } from 'semantic-ui-react'
 import { connect } from "react-redux";
+import { Card, Image } from 'semantic-ui-react'
 
 function mapStateToProps(state) {
     return {
@@ -23,7 +23,8 @@ class GenerateList extends Component {
         }
         return (
             <div>
-                <p>{selectList}</p>
+                <h1>Generate List</h1>
+                {selectList}
             </div>
         )
     }
