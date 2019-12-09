@@ -1,13 +1,23 @@
 import React, { Component } from 'react' 
-
 import axios from 'axios'
 import SearchLists from './SearchLists'
 import './style.css'
+import {bindActionCreators} from 'redux'
+import { connect } from 'react-redux'
+import { selectHero } from '../actions'
 
 
 const API_URL = "https://superheroapi.com/api"
 const API_token = "212252059775751"
-const search_interval = 300
+function mapStateToProps(state) {
+    return {
+        selectReducer: state.selectReducer
+    }
+}
+
+function matchDispatchToProps(dispatch) {
+    return bindActionCreators({ selectHero: selectHero}, dispatch)
+}
 
 class Search extends Component{
     constructor(props) {
@@ -18,6 +28,7 @@ class Search extends Component{
             error: false,
             isLoaded: false 
         }
+
     }
 
     getHero = () => {
@@ -53,15 +64,16 @@ class Search extends Component{
 
         return (
             <div className = "searchBox">
+                <h1>counter {this.props.selectReducer}</h1>
                 <input
                     placeholder = "Search for super heros' name"
                     ref = {input =>  this.search= input}
                     onChange = {this.handleInputChange}
                 />
-                <SearchLists results={this.state.results} isLoaded={this.state.isLoaded} error={this.state.error} /> 
+            <SearchLists results={this.state.results} isLoaded={this.state.isLoaded} error={this.state.error} /> 
             </div>
         )
     }
 }
 
-export default Search
+export default connect(mapStateToProps, matchDispatchToProps)(Search)

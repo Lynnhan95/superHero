@@ -1,11 +1,30 @@
 import React, {Component} from 'react' 
 
-import { List, Checkbox, Image } from 'semantic-ui-react'
+import { List, Image, Button } from 'semantic-ui-react'
 import './style.css'
 
+import { connect } from 'react-redux'
+
+function mapStateToProps(state) {
+    return {
+        heros: state.heros
+    }
+}
+
 class SearchLists extends Component{
+    constructor() {
+        super()
+    }
+
+    handleButtonClick = (e, d) => {
+        this.props.dispatch({
+            type: "SELECT_HERO",
+            payload: d.data
+        })
+    }
 
     render() {
+        console.log(this.props.heros)
         if (!this.props.isLoaded) {
             // If API isn't loaded (that might due to HTTP request failure or no query params), don't render anything
             return null
@@ -26,7 +45,7 @@ class SearchLists extends Component{
                     const lists = searchResults.results.map( (d,i) => {
                         return(
                             <List.Item key ={`listItems-${i}`}>
-                                <Checkbox key = {`checkbox-${i}`}/>
+                                <Button onClick = {this.handleButtonClick} data = {d}>Select</Button>
                                 <List.Content>
                                 <List.Header as='a'> { d.name } </List.Header>
                                 <List.Description as='a'> { d.biography.aliases } </List.Description>
@@ -62,5 +81,5 @@ class SearchLists extends Component{
     }
 }
 
-export default SearchLists 
+export default connect(mapStateToProps) (SearchLists)
 
