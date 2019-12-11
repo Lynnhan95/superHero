@@ -1,41 +1,54 @@
 import React, {Component} from 'react' 
 import { connect } from "react-redux";
 import './style.css'
+import { d3ScaleChromatic } from 'd3-scale-chromatic'
+import { Popup } from 'semantic-ui-react'
 
-function mapStateToProps(state) {
-    return {
-        radiar: state.heros
-    }
-}
 
 class RadarChart extends Component {
     constructor(props) {
     super(props);
     }
+
+    handleHover = (data, e) => {
+        e.target.classList.add('hovered')
+    }
+
+    handleOut = (data, e) => {
+        e.target.classList.remove('hovered')
+    }
     
     render () {
-    // const data = [
-    //     { battery: 0.7, design: 1, useful: 0.9, speed: 0.67, weight: 0.8, hello: 0.6 },
-    //     { battery: 0.6, design: 0.9, useful: 0.8, speed: 0.7, weight: 0.6, hello: 0.5 }
-    //   ];
         let data = this.props.radiar.heros.map((d) => {
-            console.log(d)
-            return (d.powerstats)
+            return d.powerstats
         })
-        console.log(data)
-        const chartSize = 450;
+        const chartSize = 560;
         const numberOfScales = 4;
-        const scale = value => (
+        const padding = 10
+        const colorPlate = ["#edc951", "#BD3745", "#1E9BA3", "#853660", "#6EAB20", "#EC5512"]
+        const scale = value => {
+        let lineWidth = null
+        switch(value) {
+            case 4:
+                lineWidth = 1
+                break;
+            default:
+                lineWidth = 0.2 
+        }
+
+        return (
         <circle
             key={`scale-${value}`}
             cx={0}
             cy={0}
-            r={((value / numberOfScales) * chartSize) / 2}
-            fill="#FAFAFA"
-            stroke="#999"
-            strokeWidth="0.2"
+            r={((value / numberOfScales) * (chartSize-padding)) / 2}
+            stroke="#eee"
+            fill="transparent"
+            strokeWidth={lineWidth}
         />
-        );
+        )
+
+        };
         const polarToX = (angle, distance) => Math.cos(angle - Math.PI / 2) * distance;
         const polarToY = (angle, distance) => Math.sin(angle - Math.PI / 2) * distance;
         const pathDefinition = points => {
@@ -47,22 +60,41 @@ class RadarChart extends Component {
         };
         const shape = columns => (chartData, i) => {
         const data = chartData;
+
         return (
-            <path
+            <Popup
+                key = {`popover-${i}`}
+                style = { {opacity : 0.75} }
+                position = 'top left'
+                trigger = {
+                <path
             key={`shape-${i}`}
             d={pathDefinition(
                 columns.map(col => {
-                const value = data[col.key]/100;
+                const value = data[col.key]/ 100;
                 return [
-                    polarToX(col.angle, (value * chartSize) / 2),
-                    polarToY(col.angle, (value * chartSize) / 2)
+                    polarToX(col.angle, (value * (chartSize-padding)) / 2),
+                    polarToY(col.angle, (value * (chartSize-padding)) / 2)
                 ];
                 })
             )}
-            stroke={`#edc951`}
-            fill={`#edc951`}
-            fillOpacity=".5"
+            stroke={ i < 6 ? colorPlate[i] : '#edc951' }
+            strokeWidth = "3.2"
+            fill= { i < 6 ? colorPlate[i] : '#edc951' }
+            fillOpacity=".3"
+            onMouseOver = {this.handleHover.bind(this, data)}
+            onMouseOut = {this.handleOut.bind(this, data)}
+            data = {data}
             />
+            } 
+            >
+            <Popup.Header>Power Stats</Popup.Header>
+            <Popup.Content>
+                <p>Intelligence: {data.intelligence}, Strength: {data.strength}, Speed: {data.speed}, Durability: {data.durability}, Power: {data.power}, Combat: {data.combat}</p>
+
+            </Popup.Content>
+        </Popup>
+
         );
         };
         const points = points => {
@@ -75,10 +107,10 @@ class RadarChart extends Component {
             key={`poly-axis-${i}`}
             points={points([
             [0, 0],
-            [polarToX(col.angle, chartSize / 2), polarToY(col.angle, chartSize / 2)]
+            [polarToX(col.angle, (chartSize-padding) / 2), polarToY(col.angle, (chartSize-padding) / 2)]
             ])}
             stroke="#555"
-            strokeWidth=".2"
+            strokeWidth="0.5"
         />
         );
 
@@ -108,10 +140,10 @@ class RadarChart extends Component {
     const caption = () => col => (
         <text
             key={`caption-of-${col.key}`}
-            x={polarToX(col.angle, (chartSize / 2) * 0.95).toFixed(4)}
+            x={polarToX(col.angle, (chartSize / 2) * 0.95 - padding*1.35).toFixed(4)}
             y={polarToY(col.angle, (chartSize / 2) * 0.95).toFixed(4)}
             dy={10 / 2}
-            fill="#444"
+            fill="#fff"
             fontWeight="400"
             textshadow="1px 1px 0 #fff"
         >
@@ -119,12 +151,14 @@ class RadarChart extends Component {
         </text>
         );
     if (columns) {
-        groups.push(<g key={`scales`}>{scales}</g>);
+
         groups.push(<g key={`group-axes`}>{columns.map(axis())}</g>);
         groups.push(<g key={`groups}`}>{data.map(shape(columns))}</g>);
         groups.push(<g key={`group-captions`}>{columns.map(caption())}</g>);
     }
+    groups.push(<g key={`scales`}>{scales}</g>);
     return (
+        <div className = "visWrapper">
         <svg
             version="1"
             xmlns="http://www.w3.org/2000/svg"
@@ -134,9 +168,16 @@ class RadarChart extends Component {
         >
             <g transform={`translate(${middleOfChart},${middleOfChart})`}>{groups}</g>
         </svg>
+        </div>
         );
     }
 
 }
 
-  export default connect(mapStateToProps)(RadarChart);
+function mapStateToProps(state) {
+    return {
+        radiar: state.heros
+    }
+}
+
+export default connect(mapStateToProps)(RadarChart);

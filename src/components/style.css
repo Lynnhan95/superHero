@@ -1,10 +1,65 @@
 .searchBox {
-    margin:0 auto;
-    width: 25% ;
+    width: 70% ;
+    background: rgba(255, 255, 255, 0.95);
+    border: transparent;
+    z-index: 10000;
+    position: absolute;
+    top:0px
 }
 
 .searchLists {
-    height: 500px;
+    height: 520px;
     overflow-y: scroll;
-    border: 1px solid #eee
+    overflow-x: hidden;
+    border: 1px solid #eee;
+    color: #000
 }
+
+.input {
+    width: 100%;
+    padding: 0.5em 1.5em;
+}
+
+.generateList {
+    position: absolute;
+    top: 60px;
+    z-index: 10;
+}
+
+.error {
+    color: #000
+}
+
+.close {
+    display: block;
+    width: 100%;
+    background: transparent !important;
+    margin: 0 auto;
+    padding-top: 2em !important
+}
+
+.listHeader {
+    padding: 1em 0 !important
+}
+
+.profile {
+    margin-top: 1em;
+}
+
+.hovered {
+    fill-opacity: 0.6;
+    cursor: pointer
+}
+
+.generateListTitle {
+    margin-bottom: 1em;
+}
+
+.listName {
+    text-align: center;
+}
+
+.visWrapper {
+    margin-top: 3em
+}
+

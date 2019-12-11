@@ -1,13 +1,7 @@
 import React, {Component} from 'react' 
 import { connect } from 'react-redux'
 import './style.css'
-import { List, Image, Button } from 'semantic-ui-react'
-
-function mapStateToProps(state) {
-    return {
-        heros: state.heros
-    }
-}
+import { List, Image, Button, Grid } from 'semantic-ui-react'
 
 class SearchList extends Component{
     //dispatch action to reducer, to get new state and make it accessible to other components
@@ -19,7 +13,6 @@ class SearchList extends Component{
     }
 
     render() {
-        console.log(this.props.heros)
         if (!this.props.isLoaded) {
             // If API isn't loaded (that might due to HTTP request failure or no query params), don't render anything
             return null
@@ -28,7 +21,7 @@ class SearchList extends Component{
                 return (
                         <List.Item>
                             <List.Content>
-                            <List.Header>Eh-oh, bad request</List.Header>
+                            <List.Header className = "error">Eh-oh, bad request</List.Header>
                             </List.Content>
                         </List.Item>
                 )
@@ -39,13 +32,22 @@ class SearchList extends Component{
                 if (searchResults.response === "success") {
                     const lists = searchResults.results.map( (d,i) => {
                         return(
-                            <List.Item key ={`listItems-${i}`}>
-                                <Button onClick = {this.handleButtonClick} data = {d}>Select</Button>
-                                <List.Content>
-                                <List.Header as='a'> { d.name } </List.Header>
-                                <List.Description as='a'> { d.biography.aliases } </List.Description>
-                                </List.Content>
-                                <Image src={ d.image.url } size="tiny"/>
+                            <List.Item className="searchItem" key ={`listItems-${i}`}>
+                            <Grid verticalAlign='middle' divided='vertically'>
+                                <Grid.Row columns={2}>
+                                <Grid.Column width={5}>
+                                    <Button onClick = {this.handleButtonClick} data = {d}>Select</Button>
+                                    <Image className="profile" src={ d.image.url } size="small"/>
+                                </Grid.Column>
+                                <Grid.Column width={9}>
+                                    <List.Header className="listHeader" as='a'> { d.name } </List.Header>
+                                    <Grid divided='vertically'>
+                                        <List.Description as='a'> "{ d.biography.aliases }" </List.Description>
+
+                                    </Grid>
+                                </Grid.Column>
+                                </Grid.Row>
+                            </Grid>
                             </List.Item>
                         
                         )
@@ -61,7 +63,7 @@ class SearchList extends Component{
                     return (
                         <List.Item>
                             <List.Content>
-                            <List.Header>Eh-oh, no results</List.Header>
+                            <List.Header className = "error">Eh-oh, no results</List.Header>
                             </List.Content>
                         </List.Item>
                     )  
@@ -71,6 +73,13 @@ class SearchList extends Component{
     }
 
 }
+
+function mapStateToProps(state) {
+    return {
+        heros: state.heros
+    }
+}
+
 
 export default connect(mapStateToProps) (SearchList)
 

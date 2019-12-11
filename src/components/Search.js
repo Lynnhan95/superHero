@@ -5,6 +5,7 @@ import './style.css'
 import {bindActionCreators} from 'redux'
 import { connect } from 'react-redux'
 import { selectHero } from '../actions'
+import { Button } from 'semantic-ui-react'
 
 
 const API_URL = "https://superheroapi.com/api"
@@ -51,13 +52,21 @@ class Search extends Component{
                 if (this.state.query && this.state.query.length > 0) {
                     //show drop down list
                     this.getHero()
+
                 } else {
                     //hide drop down list 
                     this.setState({isLoaded: false})
                 }
             }) 
-
     }
+
+    handleClose = () => {
+        this.setState({isLoaded: false})
+    }
+
+    // handleLoseFocus = () => {
+    //     this.setState({isLoaded: false})
+    // }
 
     render() {
         console.log(this.state.query)
@@ -65,11 +74,14 @@ class Search extends Component{
         return (
             <div className = "searchBox">
                 <input
-                    placeholder = "Search for super heros' name"
+                    className = "input"
+                    placeholder = "Search for super hero name"
                     ref = {input =>  this.search= input}
                     onChange = {this.handleInputChange}
+                    onBlur = {this.handleLoseFocus}
                 />
-            <SearchLists results={this.state.results} isLoaded={this.state.isLoaded} error={this.state.error} /> 
+            { this.state.isLoaded ? <Button className="close" onClick = {this.handleClose}> X  Close Search List </Button> : ''}   
+            { this.state.isLoaded ? <SearchLists results={this.state.results} isLoaded={this.state.isLoaded} error={this.state.error} /> : '' }
             </div>
         )
     }
