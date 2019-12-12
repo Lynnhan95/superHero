@@ -4,7 +4,8 @@ import './style.css'
 import { List, Image, Button, Grid } from 'semantic-ui-react'
 
 class SearchList extends Component{
-    //dispatch action to reducer, to get new state and make it accessible to other components
+
+    // Dispatch action to reducer, to get new state and make it accessible to other components
     handleButtonClick = (e, d) => {
         this.props.dispatch({
             type: "SELECT_HERO",
@@ -13,6 +14,7 @@ class SearchList extends Component{
     }
 
     render() {
+        
         if (!this.props.isLoaded) {
             // If API isn't loaded (that might due to HTTP request failure or no query params), don't render anything
             return null
@@ -37,7 +39,7 @@ class SearchList extends Component{
                                 <Grid.Row columns={2}>
                                 <Grid.Column width={5}>
                                     <Button onClick = {this.handleButtonClick} data = {d}>Select</Button>
-                                    <Image className="profile" src={ d.image.url } size="small"/>
+                                    { d.image.url ? <Image className="profile" src={ d.image.url } size="small"/> : ''}
                                 </Grid.Column>
                                 <Grid.Column width={9}>
                                     <List.Header className="listHeader" as='a'> { d.name } </List.Header>

@@ -1,7 +1,6 @@
 import React, {Component} from 'react' 
 import { connect } from "react-redux";
 import './style.css'
-import { d3ScaleChromatic } from 'd3-scale-chromatic'
 import { Popup } from 'semantic-ui-react'
 
 
@@ -10,6 +9,7 @@ class RadarChart extends Component {
     super(props);
     }
 
+    //Add class when hover to hightlight DOM element
     handleHover = (data, e) => {
         e.target.classList.add('hovered')
     }
@@ -17,16 +17,22 @@ class RadarChart extends Component {
     handleOut = (data, e) => {
         e.target.classList.remove('hovered')
     }
-    
+
     render () {
+        
+        // Receive data from GenerateList and process data for vis
         let data = this.props.radiar.heros.map((d) => {
             return d.powerstats
         })
+
+        // Config bar chart SVG settings
         const chartSize = 560;
         const numberOfScales = 4;
         const padding = 10
         const colorPlate = ["#edc951", "#BD3745", "#1E9BA3", "#853660", "#6EAB20", "#EC5512"]
         const scale = value => {
+
+        // Apply different width to circle axis 
         let lineWidth = null
         switch(value) {
             case 4:
@@ -36,6 +42,7 @@ class RadarChart extends Component {
                 lineWidth = 0.2 
         }
 
+        // Return multiple circle as radiar axis 
         return (
         <circle
             key={`scale-${value}`}
@@ -49,8 +56,12 @@ class RadarChart extends Component {
         )
 
         };
+
+        // Calculate position with angle and axis
         const polarToX = (angle, distance) => Math.cos(angle - Math.PI / 2) * distance;
         const polarToY = (angle, distance) => Math.sin(angle - Math.PI / 2) * distance;
+
+        // Return path function for hexagon
         const pathDefinition = points => {
         let d = 'M' + points[0][0].toFixed(4) + ',' + points[0][1].toFixed(4);
         for (let i = 1; i < points.length; i++) {
@@ -58,6 +69,8 @@ class RadarChart extends Component {
         }
         return d + 'z';
         };
+
+        //Draw shape and map pop up 
         const shape = columns => (chartData, i) => {
         const data = chartData;
 
@@ -91,12 +104,13 @@ class RadarChart extends Component {
             <Popup.Header>Power Stats</Popup.Header>
             <Popup.Content>
                 <p>Intelligence: {data.intelligence}, Strength: {data.strength}, Speed: {data.speed}, Durability: {data.durability}, Power: {data.power}, Combat: {data.combat}</p>
-
             </Popup.Content>
         </Popup>
 
         );
         };
+
+        // Draw axis
         const points = points => {
         return points
             .map(point => point[0].toFixed(4) + ',' + point[1].toFixed(4))
@@ -137,6 +151,7 @@ class RadarChart extends Component {
         });
     }
 
+    //Draw text caption
     const caption = () => col => (
         <text
             key={`caption-of-${col.key}`}
@@ -150,13 +165,17 @@ class RadarChart extends Component {
             {col.key}
         </text>
         );
+    // Conditional render hexagon according to props ( state) data 
     if (columns) {
-
+        groups.push(<g key={`scales`}>{scales}</g>);
         groups.push(<g key={`group-axes`}>{columns.map(axis())}</g>);
         groups.push(<g key={`groups}`}>{data.map(shape(columns))}</g>);
         groups.push(<g key={`group-captions`}>{columns.map(caption())}</g>);
+    }else {
+        groups.push(<g key={`scales`}>{scales}</g>);
     }
-    groups.push(<g key={`scales`}>{scales}</g>);
+
+    // Draw SVG element
     return (
         <div className = "visWrapper">
         <svg

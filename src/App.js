@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-
 import 'semantic-ui-css/semantic.min.css';
 import './index.css'
 import Search from './components/Search'
@@ -12,22 +11,23 @@ class App extends Component {
   render () {
 
     return (
-
       <div className="App">
         <div className="header">
-          <h1>Super-Hero-Bowl!</h1>
+          <h1>Super Hero Combat!</h1>
         </div>
+
         <Grid divided='vertically' >
-        <Grid.Row columns={2} >
-        <Grid.Column divided='horizontal'>
-          <Search /> 
-          <GenerateList />
+          <Grid.Row columns={2} >
+          <Grid.Column divided='horizontal'>
+            <Search /> 
+            <GenerateList />
           </Grid.Column> 
-        <Grid.Column>
-          <Radiar />
-        </Grid.Column>
-        </Grid.Row>
+          <Grid.Column>
+            <Radiar />
+          </Grid.Column>
+          </Grid.Row>
         </Grid>
+
       </div>
     );
   }

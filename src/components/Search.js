@@ -7,22 +7,14 @@ import { connect } from 'react-redux'
 import { selectHero } from '../actions'
 import { Button } from 'semantic-ui-react'
 
-
+// Config API
 const API_URL = "https://superheroapi.com/api"
 const API_token = "212252059775751"
-function mapStateToProps(state) {
-    return {
-        selectReducer: state.selectReducer
-    }
-}
-
-function matchDispatchToProps(dispatch) {
-    return bindActionCreators({ selectHero: selectHero}, dispatch)
-}
 
 class Search extends Component{
     constructor(props) {
         super(props)
+        // Initiate state
         this.state = {
             query: '',
             results:[],
@@ -32,6 +24,7 @@ class Search extends Component{
 
     }
 
+    // Make API call according to user input and throw error it fail
     getHero = () => {
         axios.get(`${API_URL}/${API_token}/search/${this.state.query}`)
             .then( (data) => {
@@ -44,6 +37,7 @@ class Search extends Component{
             .catch(() => this.setState({ error: true }))
     }
 
+    // Handle user input and make API call function
     handleInputChange = () => {
             this.setState({
                 query: this.search.value
@@ -59,18 +53,15 @@ class Search extends Component{
                 }
             }) 
     }
-
+    
+    // Enable user to close the search list
     handleClose = () => {
         this.setState({isLoaded: false})
     }
 
-    // handleLoseFocus = () => {
-    //     this.setState({isLoaded: false})
-    // }
-
     render() {
-        console.log(this.state.query)
-
+        
+        // Return search list with API call results
         return (
             <div className = "searchBox">
                 <input
@@ -85,6 +76,17 @@ class Search extends Component{
             </div>
         )
     }
+}
+
+// Config Redux connection
+function mapStateToProps(state) {
+    return {
+        selectReducer: state.selectReducer
+    }
+}
+
+function matchDispatchToProps(dispatch) {
+    return bindActionCreators({ selectHero: selectHero}, dispatch)
 }
 
 export default connect(mapStateToProps, matchDispatchToProps)(Search)
