@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/Lynnhan95/superHero/static/css/main.142ab58a.chunk.css",
+    "main.js": "/Lynnhan95/superHero/static/js/main.1aa7f62a.chunk.js",
+    "main.js.map": "/Lynnhan95/superHero/static/js/main.1aa7f62a.chunk.js.map",
+    "runtime-main.js": "/Lynnhan95/superHero/static/js/runtime-main.4c9ac3f1.js",
+    "runtime-main.js.map": "/Lynnhan95/superHero/static/js/runtime-main.4c9ac3f1.js.map",
+    "static/css/2.8683973f.chunk.css": "/Lynnhan95/superHero/static/css/2.8683973f.chunk.css",
+    "static/js/2.d4e519d8.chunk.js": "/Lynnhan95/superHero/static/js/2.d4e519d8.chunk.js",
+    "static/js/2.d4e519d8.chunk.js.map": "/Lynnhan95/superHero/static/js/2.d4e519d8.chunk.js.map",
+    "index.html": "/Lynnhan95/superHero/index.html",
+    "precache-manifest.27eb035a35e7a25783ddfa6a0304a1e4.js": "/Lynnhan95/superHero/precache-manifest.27eb035a35e7a25783ddfa6a0304a1e4.js",
+    "service-worker.js": "/Lynnhan95/superHero/service-worker.js",
+    "static/css/2.8683973f.chunk.css.map": "/Lynnhan95/superHero/static/css/2.8683973f.chunk.css.map",
+    "static/css/main.142ab58a.chunk.css.map": "/Lynnhan95/superHero/static/css/main.142ab58a.chunk.css.map",
+    "static/media/semantic.min.css": "/Lynnhan95/superHero/static/media/outline-icons.ef60a4f6.woff"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.4c9ac3f1.js",
+    "static/css/2.8683973f.chunk.css",
+    "static/js/2.d4e519d8.chunk.js",
+    "static/css/main.142ab58a.chunk.css",
+    "static/js/main.1aa7f62a.chunk.js"
+  ]
+}
