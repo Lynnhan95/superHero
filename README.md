@@ -1,71 +1,32 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+## Super Hero Combats!
+This is a data visualization application concerning super hero super power stats. Users are able to search superheros by names, add heros to generated list, and make comparison with visual graphs. <br />
+The design concept is shown in picture below: <br />
+![super.gif](https://i.loli.net/2019/12/12/8y2lbQi3sOk9tTa.gif) <br />
+Technology: <br />
+React, D3, Redux and superhero REST API (https://superheroapi.com/api). 
 
-In the project directory, you can run:
+### Component overview
 
-### `yarn start`
+In the application, multiple UI elements and functions are presented as React components. <br />
+There are 5 major UI components: Search box (+ close button), Search list (+ select button), Generated List (+ hero profile), Bar chart and Radar chart (both has tooltip.) <br />
+And 2 functional components: Redux reducer that returns new state with actions dispatched to it; and search function that fetch data with superhero API. <br />
+Using component makes code easier to read and manage.
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+### Visualization
 
-### `yarn test`
+I choose bar chart and radar chart as main visual representation for superheros super power. <br />
+Because bar chart is simple and clear to present each hero's power in terms of intelligence, strength, speed, etc.<br />
+And radar chart is cool and informative when compare multiple heros in one time. <br />
+![design.jpg](https://i.loli.net/2019/12/12/9HAcNFT8PREI6w7.jpg)
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Data flow
 
-### `yarn build`
+The data will be fetched when user input superhero names in the search box. Later on, the data will be stored and passed within components as state/ prop. This is how data flow in the application: <br />
+![flow.jpg](https://i.loli.net/2019/12/12/E9dfI6Yz1csPRMj.jpg)
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Work flow
+I started from the search function, and draw some UI elements based on API call results with React. Then, analyzed the JSON response to see how data looks like, draw skethchs and design. After that, I started thinking of what visualizations to use and wrote code with D3. Entire time spent on the project: 20-30 hours.
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
-# superHero
-# IllumioSuperHero
-# IllumioSuperHero
+## IllumioSuperHero
