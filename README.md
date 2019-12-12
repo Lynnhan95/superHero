@@ -27,6 +27,6 @@ The data will be fetched when user input superhero names in the search box (p.s.
 ![flow.jpg](https://i.loli.net/2019/12/12/E9dfI6Yz1csPRMj.jpg)
 
 ### Work flow
-I started from the search function, and draw some UI elements based on API call results with React. Then, analyzed the JSON response to see how data looks like, draw skethchs and design. After that, I started thinking of what visualizations to use and wrote code with D3. Entire time spent on the project: 20-30 hours.
+I started from the search function, and draw some UI elements based on API call results with React. Then, analyzed the JSON response to see how data looks like, draw sketches and design. After that, I started thinking of what visualizations to use and wrote code with D3. Entire time spent on the project: 20-30 hours.
 
 ## IllumioSuperHero
