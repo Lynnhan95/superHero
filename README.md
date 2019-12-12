@@ -23,7 +23,7 @@ And radar chart is cool and informative when compare multiple heros in one time.
 
 ### Data flow
 
-The data will be fetched when user input superhero names in the search box. Later on, the data will be stored and passed within components as state/ prop. This is how data flow in the application: <br />
+The data will be fetched when user input superhero names in the search box (p.s. the https://cors-anywhere.herokuapp.com/ API is used to enable cross-origin requests.) Later on, the data will be stored and passed within components as state/ prop. This is how data flow in the application: <br />
 ![flow.jpg](https://i.loli.net/2019/12/12/E9dfI6Yz1csPRMj.jpg)
 
 ### Work flow
