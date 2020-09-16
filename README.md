@@ -5,6 +5,7 @@ The design concept is shown in picture below : D <br />
 ![super.gif](https://i.loli.net/2019/12/12/8y2lbQi3sOk9tTa.gif) <br />
 Technology: <br />
 React, D3, Redux and superhero REST API (https://superheroapi.com/api). 
+Link to the application: lynnhan95.github.io/superhero/
 
 ### Component overview
 
